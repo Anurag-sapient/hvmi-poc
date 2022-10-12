@@ -1,12 +1,17 @@
 import axios from "axios";
 import React from "react";
 
-const baseURL="http://localhost:8099/posts";;
+const baseURL="http://localhost:8099/posts";
 function App() {
   const [post, setPost] = React.useState(null);
 
   React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    axios.get(baseURL,{
+      auth:{
+        username:'admin',
+        password:'admin'
+      }
+    }).then((response) => {
       setPost(response.data);
     });
   }, []);
