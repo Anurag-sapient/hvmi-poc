@@ -30,7 +30,7 @@ function App() {
       setPost(res.data);
       console.log('data from axiois :',res.data);
     } catch (error) {
-      setIsError(error.message);
+      console.log(error.message);
     }
   };
 
