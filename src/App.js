@@ -27,7 +27,8 @@ function App() {
         username:'admin',
         password:'admin'
       }});
-      setPost(res.data);
+      const prod=res.data;
+      if(prod)setPost(prod);
       console.log('data from axiois :',res.data);
     } catch (error) {
       console.log(error.message);
@@ -37,7 +38,7 @@ function App() {
   // NOTE:  calling the function
   useEffect(() => {
     getMyPostData();
-    console.log('data in setState :',post);
+    if(post)console.log('data after setting using setPost :',post);
   }, []);
   
   
