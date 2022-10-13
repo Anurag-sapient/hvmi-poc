@@ -1,27 +1,38 @@
 import axios from "axios";
 import React from "react";
 
-const baseURL="http://localhost:8099/posts";
+const baseURL="http://localhost:4502/content/hvmi/us/en/home.model.json";
 function App() {
   const [post, setPost] = React.useState(null);
-
-  React.useEffect(() => {
-    axios.get(baseURL,{
+  var x;
+  React.useEffect(async() => {
+    await axios.get(baseURL,{
       auth:{
         username:'admin',
         password:'admin'
       }
     }).then((response) => {
+      console.log('response inside',response.data)
+      x=response.data
       setPost(response.data);
-    });
-  }, []);
-  if (!post) return null;
+    }).catch(function (error) {
+
+      console.log("Error message",error)
+
+  })
+    ;
+    console.log("x",x);
+  }, [x]);
+  
+ 
+  
+  // if (!post) return null;
 
   return (
     <div className="App">
       <center>
-        {/* <h1>HVMI PROJECT</h1> */}
-        <h2>{post[0].title}</h2>
+        <h1>HVMI PROJECT</h1>
+        {/* <h2>{x.title}</h2> */}
         </center>
     </div>
   );
