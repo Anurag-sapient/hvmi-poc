@@ -1,30 +1,45 @@
 import axios from "axios";
-import React from "react";
+import {useState,useEffect} from "react";
 
 const baseURL="http://localhost:4502/content/hvmi/us/en/home.model.json";
 function App() {
-  const [post, setPost] = React.useState(null);
-  var x;
-  React.useEffect(async() => {
-    await axios.get(baseURL,{
+  const [post, setPost] = useState([]);
+//   useEffect(async() => {
+//     await axios.get(baseURL,{
+//       auth:{
+//         username:'admin',
+//         password:'admin'
+//       }
+//     }).then((response) => {
+//       console.log('response inside',response.data)
+//       setPost(response.data);
+//     }).catch(function (error) {
+      
+//       console.log("Error message",error)
+//   });
+//   }, []);
+  
+  // using Async Await
+  const getMyPostData = async () => {
+    try {
+      const res = await axios.get(baseURL,{
       auth:{
         username:'admin',
         password:'admin'
-      }
-    }).then((response) => {
-      console.log('response inside',response.data)
-      x=response.data
-      setPost(response.data);
-    }).catch(function (error) {
+      }});
+      setPost(res.data);
+      console.log('data from axiois :',res.data);
+    } catch (error) {
+      setIsError(error.message);
+    }
+  };
 
-      console.log("Error message",error)
-
-  })
-    ;
-    console.log("x",x);
-  }, [x]);
+  // NOTE:  calling the function
+  useEffect(() => {
+    getMyPostData();
+    console.log('data in setState :',post);
+  }, []);
   
- 
   
   // if (!post) return null;
 
